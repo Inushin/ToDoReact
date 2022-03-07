@@ -4,7 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 import ToDos from "./components/ToDoList";
 import RegistroUsuario from "./components/RegistroUsuario";
 
-const ALL_TODOS = gql`
+export const ALL_TODOS = gql`
   query {
     todos {
       id_todo
