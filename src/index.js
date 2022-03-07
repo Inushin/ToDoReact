@@ -8,19 +8,28 @@ import {
   InMemoryCache,
   ApolloProvider,
   useQuery,
-  gql
+  gql,
 } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3000',
-  cache: new InMemoryCache()
+  uri: "http://localhost:3000/graphql",
+  cache: new InMemoryCache(),
 });
+/*
+const query = gql`
+  query {
+    users {
+      username
+    }
+  }
+`;
 
-
+client.query({ query }).then((res) => console.log(res.data));
+*/
 ReactDOM.render(
-  <React.StrictMode>
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>,
+  </ApolloProvider>,
   document.getElementById("root")
 );
 
