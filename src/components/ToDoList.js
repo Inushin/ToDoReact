@@ -48,7 +48,8 @@ const ToDos = ({ todos }) => {
         </form>
         <h2>{todo[0].actividad}</h2>
         <h3>{todo[0].id_todo}</h3>
-        <button onClick={() => setTodo(null)}>Close</button>
+        {/* Esta parte no funciona como debería aún
+        <button onClick={() => setTodo(null)}>Close</button>*/}
       </div>
     );
   }
@@ -68,7 +69,8 @@ const ToDos = ({ todos }) => {
             {todo.actividad}
             {todo.id_todo}
           </p>
-          <button onClick={() => setIdTodo(todo.id_todo)}>Eliminar</button>
+          {/* Esta parte no funciona como debería aún
+          <button onClick={() => setIdTodo(todo.id_todo)}>Eliminar</button>*/}
         </div>
       ))}
     </div>
