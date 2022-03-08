@@ -1,22 +1,16 @@
-import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
-
-const CREATE_PERSON = gql`
-  mutation createPerson($username: String!, $password: String!) {
-    CrearUsuario(
-      creacionUsuario: { username: $username, password: $password }
-    ) {
-      username
-      id
-    }
-  }
-`;
+import { UseCreateUser } from "../users/custom-hooks";
 
 const RegistroUsuario = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [creacionUsuario] = UseCreateUser();
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+
+    creacionUsuario({ variables: { username, password } });
+
     setUsername("");
     setPassword("");
   };
@@ -33,9 +27,9 @@ const RegistroUsuario = () => {
         <input
           placeholder="Contraseña"
           value={password}
-           onChange={(evt) => setPassword(evt.target.value)}
+          onChange={(evt) => setPassword(evt.target.value)}
         ></input>
-    <button>Add Person</button>
+        <button>Registrarse</button>
       </form>
     </div>
   );

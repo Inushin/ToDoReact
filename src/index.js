@@ -3,29 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql",
   cache: new InMemoryCache(),
 });
-/*
-const query = gql`
-  query {
-    users {
-      username
-    }
-  }
-`;
 
-client.query({ query }).then((res) => console.log(res.data));
-*/
 ReactDOM.render(
   <ApolloProvider client={client}>
     <App />

@@ -1,21 +1,9 @@
-import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import { ALL_TODOS } from "../App";
-
-const CREATE_TODO = gql`
-  mutation createTodo($actividad: String!) {
-    CrearToDo(nuevoToDo: { actividad: $actividad, user: 1 }) {
-      actividad
-      id_todo
-    }
-  }
-`;
+import { CreateToDo } from "../toDos/custom-hooks";
 
 const RegistroTodo = () => {
   const [actividad, setActividad] = useState("");
-  const [createTodo] = useMutation(CREATE_TODO, {
-    refetchQueries: [{query:ALL_TODOS}]
-  });
+  const [createTodo] = CreateToDo();
 
   const handleSubmit = (e) => {
     e.preventDefault();

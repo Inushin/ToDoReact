@@ -1,23 +1,11 @@
 import "./App.css";
 import Form from "./components/Form";
-import { gql, useQuery } from "@apollo/client";
 import ToDos from "./components/ToDoList";
 import RegistroUsuario from "./components/RegistroUsuario";
-
-export const ALL_TODOS = gql`
-  query {
-    todos {
-      id_todo
-      actividad
-      finalizada
-    }
-  }
-`;
+import { UseToDos } from "./toDos/custom-hooks";
 
 function App() {
-  const { loading, error, data } = useQuery(ALL_TODOS);
-
-  
+  const { loading, error, data } = UseToDos();
 
   if (error) return <span style="color:red">{error}</span>;
   return (
@@ -28,8 +16,8 @@ function App() {
       </header>
       <Form />
       {data && data.todos.map((todos) => todos.id_todo).join(", ")}
-      <ToDos todos={data?.todos}/>
-      <RegistroUsuario/>
+      <ToDos todos={data?.todos} />
+      <RegistroUsuario />
     </div>
   );
 }
