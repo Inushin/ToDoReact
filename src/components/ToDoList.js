@@ -7,19 +7,23 @@ const ToDos = ({ todos }) => {
   const [actividad, setActividad] = useState("");
   const [idTodo, setIdTodo] = useState("");
   const [modificarToDo] = EditToDo();
+ 
   const [eliminarToDo] = RemoveToDo();
 
   console.log(todo);
+
 
   const showTodo = (id_todo) => {
     getTodo({ variables: { idTodo: id_todo } });
   };
 
   useEffect(() => {
+   
     if (result.data) {
       setTodo(result.data.todosById);
     }
   }, [result]);
+  
 
   const handleSubmit = (e) => {
     if (actividad == "") {

@@ -12,6 +12,7 @@ const RegistroTodo = () => {
 
     setActividad("");
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
