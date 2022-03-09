@@ -18,13 +18,14 @@ const RegistroUsuario = () => {
   };
 
   useEffect(() => {
-    if(result.data) {
+    if (result.data) {
+      setToken(result.data.login.access_token);
+      console.log(result.data.login.access_token);
+      localStorage.setItem("token", "Bearer " + token);
+      localStorage.setItem("idUsuario", result.data.login.user.id)
 
-   setToken(result.data.login.access_token)
-   console.log(result.data.login.access_token);
-
+      window.location.reload();
     }
-
   }, [result]);
 
   const handleLogin = (e) => {
