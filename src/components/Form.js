@@ -7,8 +7,9 @@ const RegistroTodo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    createTodo({ variables: { actividad } });
+    const idUsuarioString = localStorage.getItem('idUsuario');
+    const idUsuario = parseInt(idUsuarioString)
+    createTodo({ variables: { actividad , idUsuario} });
 
     setActividad("");
   };

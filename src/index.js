@@ -11,6 +11,7 @@ const client = new ApolloClient({
   headers: { Authorization: localStorage.getItem("token") },
 });
 
+
 ReactDOM.render(
   <ApolloProvider client={client}>
     <App />

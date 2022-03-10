@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 export const EDIT_TODO = gql`
 mutation editarTodo($actividad: String!, $idTodo: Int!) {
   ModificarToDo(
-    modificarToDo: { actividad: $actividad, id_todo: $idTodo, user: 1 }
+    modificarToDo: { actividad: $actividad, id_todo: $idTodo }
   ) {
     actividad
     finalizada
@@ -24,8 +24,8 @@ mutation eliminarTodo($idTodo: Int!) {
 
 
 export const CREATE_TODO = gql`
-  mutation createTodo($actividad: String!) {
-    CrearToDo(nuevoToDo: { actividad: $actividad, user: 1 }) {
+  mutation createTodo($actividad: String!, $idUsuario: Int!) {
+    CrearToDo(nuevoToDo: { actividad: $actividad, user: $idUsuario }) {
       actividad
       id_todo
     }

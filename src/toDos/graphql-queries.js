@@ -1,13 +1,12 @@
 import { gql } from "@apollo/client";
 
-
 export const FIND_TODO = gql`
-query findToDoByToDoId($idTodo: Float!) {
-  todosById(id: $idTodo) {
-    id_todo
-    actividad
+  query findToDoByToDoId($idTodo: Float!) {
+    todosById(id: $idTodo) {
+      id_todo
+      actividad
+    }
   }
-}
 `;
 
 export const ALL_TODOS = gql`
@@ -16,6 +15,14 @@ export const ALL_TODOS = gql`
       id_todo
       actividad
       finalizada
+    }
+  }
+`;
+
+export const FIND_TODO_BY_USER = gql`
+  query findToDoByUserId($idUsuario: Float!) {
+    todosByUserId(userId: $idUsuario) {
+      actividad
     }
   }
 `;

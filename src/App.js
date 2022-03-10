@@ -1,25 +1,43 @@
 import "./App.css";
-import Form from "./components/Form";
 import ToDos from "./components/ToDoList";
 import RegistroUsuario from "./components/RegistroUsuario";
-import { UseToDos } from "./toDos/custom-hooks";
+import LoginUsuario from "./components/LoginUsuario";
+import { FindToDosByUser, UseToDos } from "./toDos/custom-hooks";
+import { useState } from "react";
+import RegistroTodo from "./components/Form";
 
 function App() {
-  const { loading, error, data } = UseToDos();
+  const [actividad, setActividad] = useState("");
+  const [findToDoByUser] = FindToDosByUser();
 
-  if (error) return <span style="color:red">{error}</span>;
-  return (
-    <div className="App">
-      <header>
-        <h1>ToDo en REACT</h1>
-        {loading && <p>Loading...</p>}
-      </header>
-      <Form />
-      {data && data.todos.map((todos) => todos.id_todo).join(", ")}
-      <ToDos todos={data?.todos} />
-      <RegistroUsuario />
-    </div>
-  );
+  const idUsuarioString = localStorage.getItem("idUsuario");
+  const token = localStorage.getItem("token");
+  const idUsuario = parseInt(idUsuarioString);
+
+  if (!token) {
+    return (
+      <div className="App">
+        <header>
+          <h1>¿Tienes cuenta?</h1>
+        </header>
+        <LoginUsuario />
+        <RegistroUsuario />
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <header>
+          <h1>Bienvenido a la ToDo en REACT</h1>
+        </header>
+        <RegistroTodo />
+        {actividad && actividad.todos.map((todos) => todos.id_todo).join(", ")}
+        <ToDos />
+      </div>
+    );
+    //<ToDos todos={actividad.data?.todos} />
+    
+  }
 }
 
 export default App;

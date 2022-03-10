@@ -1,29 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { EditToDo, FindToDos, RemoveToDo } from "../toDos/custom-hooks";
+import {
+  EditToDo,
+  FindToDos,
+  FindToDosByUser,
+  RemoveToDo,
+} from "../toDos/custom-hooks";
 
 const ToDos = ({ todos }) => {
-  const [getTodo, result] = FindToDos();
+  //const [getTodo, result] = FindToDos();
   const [todo, setTodo] = useState(null);
+  const [getTodoByUser, result] = FindToDosByUser();
   const [actividad, setActividad] = useState("");
   const [idTodo, setIdTodo] = useState("");
   const [modificarToDo] = EditToDo();
- 
+
   const [eliminarToDo] = RemoveToDo();
 
-  console.log(todo);
+  console.log(result.data);
 
-
+  /*
   const showTodo = (id_todo) => {
     getTodo({ variables: { idTodo: id_todo } });
   };
+  */
 
-  useEffect(() => {
+  const idUsuarioString = localStorage.getItem("idUsuario");
+  const idUsuario = parseInt(idUsuarioString);
+
+  const showTodoByUser = (idUsuario) => {
+    getTodoByUser({ variables: { userId: idUsuario } });
+  };
+
+  /*useEffect(() => {
    
     if (result.data) {
       setTodo(result.data.todosById);
     }
   }, [result]);
-  
+  */
+
+  useEffect(() => {
+    console.log(result);
+    if (result.data) {
+      setTodo(result.data.todosByUserId);
+    }
+  }, [result]);
+  console.log(result.data)
 
   const handleSubmit = (e) => {
     if (actividad == "") {
@@ -39,14 +61,13 @@ const ToDos = ({ todos }) => {
   };
 
   const handleRemove = (e) => {
-  
     eliminarToDo({ variables: { idTodo } });
     setIdTodo("");
-    alert("Eliminado con éxito")
+    alert("Eliminado con éxito");
   };
 
   //Solo setea una vez el null en lugar de dos y no vuelve atrás.
-  if (todo) {
+  /*if (todo) {
     return (
       <div>
         <h2>Editar ToDO</h2>
@@ -64,11 +85,21 @@ const ToDos = ({ todos }) => {
           <button onClick={() => setIdTodo(todo[0].id_todo)}>Eliminar</button>
         </form>
         {/* Esta parte no funciona como debería aún
-        <button onClick={() => setTodo(null)}>Close</button>*/}
+        <button onClick={() => setTodo(null)}>Close</button>}
       </div>
     );
   }
-  if (todos === undefined) return null;
+*/
+  if(getTodoByUser) {
+
+    return(
+      <div>
+        <h2>Hola</h2>
+        <p>{todo.actividad}</p>
+      </div>
+    )
+  }
+  /*
 
   return (
     <div>
@@ -88,6 +119,7 @@ const ToDos = ({ todos }) => {
       ))}
     </div>
   );
+  */
 };
 
 export default ToDos;

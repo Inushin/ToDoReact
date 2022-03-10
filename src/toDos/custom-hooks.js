@@ -1,6 +1,6 @@
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { CREATE_TODO, EDIT_TODO, ELIMINAR_TODO } from "./graphql-mutations";
-import { ALL_TODOS, FIND_TODO } from "./graphql-queries";
+import { ALL_TODOS, FIND_TODO, FIND_TODO_BY_USER } from "./graphql-queries";
 import React from "react";
 
 export const UseToDos = () => {
@@ -8,8 +8,13 @@ export const UseToDos = () => {
   return result;
 };
 
-export const FindToDos = () => {
+/*export const FindToDos = () => {
   const result = useLazyQuery(FIND_TODO);
+  return result;
+};*/
+
+export const FindToDosByUser = () => {
+  const result = useLazyQuery(FIND_TODO_BY_USER);
   return result;
 };
 
