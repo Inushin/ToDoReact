@@ -12,11 +12,11 @@ const ToDos = ({ todos }) => {
   const [getTodoByUser, result] = FindToDosByUser();
   const [actividad, setActividad] = useState("");
   const [idTodo, setIdTodo] = useState("");
+  //const [idUsuario, setIdUsuario] = useState("");
   const [modificarToDo] = EditToDo();
 
   const [eliminarToDo] = RemoveToDo();
 
-  console.log(result.data);
 
   /*
   const showTodo = (id_todo) => {
@@ -25,11 +25,13 @@ const ToDos = ({ todos }) => {
   */
 
   const idUsuarioString = localStorage.getItem("idUsuario");
-  const idUsuario = parseInt(idUsuarioString);
-
+  const idUsuario = parseInt(idUsuarioString); 
+console.log(idUsuario)
   const showTodoByUser = (idUsuario) => {
-    getTodoByUser({ variables: { userId: idUsuario } });
+    getTodoByUser({ variables: { idUsuario: idUsuario } });
   };
+
+
 
   /*useEffect(() => {
    
@@ -38,14 +40,7 @@ const ToDos = ({ todos }) => {
     }
   }, [result]);
   */
-
-  useEffect(() => {
-    console.log(result);
-    if (result.data) {
-      setTodo(result.data.todosByUserId);
-    }
-  }, [result]);
-  console.log(result.data)
+  
 
   const handleSubmit = (e) => {
     if (actividad == "") {
@@ -91,11 +86,13 @@ const ToDos = ({ todos }) => {
   }
 */
   if(getTodoByUser) {
+    console.log(showTodoByUser(0))
+
 
     return(
       <div>
         <h2>Hola</h2>
-        <p>{todo.actividad}</p>
+        <p>{FindToDosByUser.result}</p>
       </div>
     )
   }
