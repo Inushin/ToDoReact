@@ -10,9 +10,9 @@ function App() {
   const [actividad, setActividad] = useState("");
   const [findToDoByUser] = FindToDosByUser();
 
-  const idUsuarioString = localStorage.getItem("idUsuario");
+  //const idUsuarioString = localStorage.getItem("idUsuario");
   const token = localStorage.getItem("token");
-  const idUsuario = parseInt(idUsuarioString);
+ // const idUsuario = parseInt(idUsuarioString);
 
   if (!token) {
     return (

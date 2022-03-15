@@ -6,7 +6,7 @@ const LoginUsuario = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [loginUsuario, result] = LoginUser();
-  localStorage.setItem("idUsuario", "7");
+ // localStorage.setItem("idUsuario", "7");
   useEffect(() => {
     if (result.data) {
       setToken(result.data.login.access_token);

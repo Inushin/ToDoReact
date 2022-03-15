@@ -17,7 +17,6 @@ const ToDos = ({ todos }) => {
 
   const [eliminarToDo] = RemoveToDo();
 
-
   /*
   const showTodo = (id_todo) => {
     getTodo({ variables: { idTodo: id_todo } });
@@ -25,22 +24,19 @@ const ToDos = ({ todos }) => {
   */
 
   const idUsuarioString = localStorage.getItem("idUsuario");
-  const idUsuario = parseInt(idUsuarioString); 
-console.log(idUsuario)
+  const idUsuario = parseInt(idUsuarioString);
+  //console.log(idUsuario)
   const showTodoByUser = (idUsuario) => {
     getTodoByUser({ variables: { idUsuario: idUsuario } });
   };
 
+  //getTodoByUser(idUsuario);
 
-
-  /*useEffect(() => {
-   
+  useEffect(() => {
     if (result.data) {
-      setTodo(result.data.todosById);
+      setTodo(result.data.todosByUserId);
     }
   }, [result]);
-  */
-  
 
   const handleSubmit = (e) => {
     if (actividad == "") {
@@ -85,16 +81,16 @@ console.log(idUsuario)
     );
   }
 */
-  if(getTodoByUser) {
-    console.log(showTodoByUser(0))
 
+  if (getTodoByUser) {
+    console.log(showTodoByUser(7));
+    console.log(todo[0]);
 
-    return(
+    return (
       <div>
-        <h2>Hola</h2>
-        <p>{FindToDosByUser.result}</p>
+        <h2>todo[0].actividad</h2>
       </div>
-    )
+    );
   }
   /*
 
