@@ -82,7 +82,6 @@ const ToDos = () => {
             </h2>
           );
         })}
-        <button onClick={borrarLocal}>Salir</button>
       </div>
     );
   }
