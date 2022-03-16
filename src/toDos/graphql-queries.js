@@ -23,6 +23,7 @@ export const FIND_TODO_BY_USER = gql`
   query findToDoByUserId($idUsuario: Float!) {
     todosByUserId(userId: $idUsuario) {
       actividad
+      id_todo
     }
   }
 `;

@@ -6,45 +6,49 @@ import {
   RemoveToDo,
 } from "../toDos/custom-hooks";
 
-const ToDos = ({ todos }) => {
-  //const [getTodo, result] = FindToDos();
+const ToDos = () => {
+  const [getTodo, resultado] = FindToDos();
   const [todo, setTodo] = useState(null);
+  const [todoDetalle, setTodoDetalle] = useState(null);
   const [getTodoByUser, result] = FindToDosByUser();
   const [actividad, setActividad] = useState("");
   const [idTodo, setIdTodo] = useState("");
-  //const [idUsuario, setIdUsuario] = useState("");
   const [modificarToDo] = EditToDo();
 
   const [eliminarToDo] = RemoveToDo();
 
-  /*
   const showTodo = (id_todo) => {
     getTodo({ variables: { idTodo: id_todo } });
   };
-  */
+  useEffect(() => {
+    if (resultado.data) {
+      setTodoDetalle(resultado.data.todosById);
+    }
+  }, [resultado]);
 
   const idUsuarioString = localStorage.getItem("idUsuario");
   const idUsuario = parseInt(idUsuarioString);
-  //console.log(idUsuario)
+
   const showTodoByUser = (idUsuario) => {
     getTodoByUser({ variables: { idUsuario: idUsuario } });
   };
 
-  //getTodoByUser(idUsuario);
-
   useEffect(() => {
+    showTodoByUser(idUsuario);
     if (result.data) {
-      setTodo(result.data.todosByUserId);
+      setTodo(result.data);
     }
-  }, [result]);
+  }, [result.data]);
 
-  const handleSubmit = (e) => {
-    if (actividad == "") {
+  const handleSubmit = async (e) => {
+    if (actividad === "") {
       e.preventDefault();
       alert("El texto no ha sido modificado");
-      //  eliminarToDo({ variables: { idTodo } });
     } else {
-      modificarToDo({ variables: { actividad, idTodo } });
+      const modificado = await modificarToDo({
+        variables: { actividad, idTodo },
+      });
+      alert("Modificado con éxito");
     }
 
     setActividad("");
@@ -57,62 +61,61 @@ const ToDos = ({ todos }) => {
     alert("Eliminado con éxito");
   };
 
-  //Solo setea una vez el null en lugar de dos y no vuelve atrás.
-  /*if (todo) {
+  const borrarLocal = (e) => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
+  if (todo && todoDetalle == null) {
+    console.log(todo.todosByUserId);
     return (
       <div>
-        <h2>Editar ToDO</h2>
-        <form onSubmit={handleSubmit}>
-          <h2>{todo[0].actividad}</h2>
-          <input
-            placeholder={todo[0].actividad}
-            value={actividad}
-            onChange={(evt) => setActividad(evt.target.value)}
-          ></input>
+        {todo.todosByUserId.map((todos) => {
+          return (
+            <h2
+              key={todos.id_todo}
+              onClick={() => {
+                showTodo(todos.id_todo);
+              }}
+            >
+              {todos.actividad}
+            </h2>
+          );
+        })}
+        <button onClick={borrarLocal}>Salir</button>
+      </div>
+    );
+  }
 
-          <button onClick={() => setIdTodo(todo[0].id_todo)}>Editar</button>
+  if (todoDetalle) {
+    console.log(todoDetalle);
+    return (
+      <div>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <h1>Editando ToDo: {todoDetalle[0].actividad}</h1>
+            <input
+              placeholder={todoDetalle[0].actividad}
+              value={actividad}
+              onChange={(evt) => setActividad(evt.target.value)}
+            ></input>
+            <button onClick={() => setIdTodo(todoDetalle[0].id_todo)}>
+              Editar
+            </button>
+          </div>
         </form>
         <form onSubmit={handleRemove}>
-          <button onClick={() => setIdTodo(todo[0].id_todo)}>Eliminar</button>
+          <div>
+            <button onClick={() => setIdTodo(todoDetalle[0].id_todo)}>
+              Eliminar
+            </button>
+          </div>
         </form>
-        {/* Esta parte no funciona como debería aún
-        <button onClick={() => setTodo(null)}>Close</button>}
       </div>
     );
+  } else {
+    return <p>Cargando...</p>;
   }
-*/
-
-  if (getTodoByUser) {
-    console.log(showTodoByUser(7));
-    console.log(todo[0]);
-
-    return (
-      <div>
-        <h2>todo[0].actividad</h2>
-      </div>
-    );
-  }
-  /*
-
-  return (
-    <div>
-      <h2>ToDos</h2>
-      {todos.map((todo) => (
-       
-          <p
-           key={todo.id_todo}
-            onClick={() => {
-              showTodo(todo.id_todo);
-            }}
-          >
-            {todo.actividad}
-            {todo.id_todo}
-          </p>
-        
-      ))}
-    </div>
-  );
-  */
 };
 
 export default ToDos;
