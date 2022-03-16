@@ -7,13 +7,16 @@ const RegistroTodo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const idUsuarioString = localStorage.getItem('idUsuario');
-    const idUsuario = parseInt(idUsuarioString)
-    createTodo({ variables: { actividad , idUsuario} });
+    const idUsuarioString = localStorage.getItem("idUsuario");
+    const idUsuario = parseInt(idUsuarioString);
+    createTodo({ variables: { actividad, idUsuario } });
 
     setActividad("");
   };
-  
+  const borrarLocal = (e) => {
+    localStorage.clear();
+    window.location.reload();
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -25,6 +28,7 @@ const RegistroTodo = () => {
       <button className="todo-button" type="submit">
         {" AGREGAR "}
       </button>
+      <button onClick={borrarLocal}>{" SALIR "}</button>
     </form>
   );
 };

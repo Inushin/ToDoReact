@@ -6,11 +6,9 @@ const LoginUsuario = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [loginUsuario, result] = LoginUser();
- // localStorage.setItem("idUsuario", "7");
   useEffect(() => {
     if (result.data) {
       setToken(result.data.login.access_token);
-      console.log(result.data.login.access_token);
       localStorage.setItem("token", "Bearer " + token);
       localStorage.setItem("idUsuario", result.data.login.user.id);
 
@@ -40,7 +38,6 @@ const LoginUsuario = () => {
           value={password}
           onChange={(evt) => setPassword(evt.target.value)}
         ></input>
-        <p>{token}</p>
         <button>Entrar</button>
       </form>
     </div>

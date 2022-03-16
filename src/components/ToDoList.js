@@ -14,24 +14,21 @@ const ToDos = () => {
   const [actividad, setActividad] = useState("");
   const [idTodo, setIdTodo] = useState("");
   const [modificarToDo] = EditToDo();
-
   const [eliminarToDo] = RemoveToDo();
 
-  const showTodo = (id_todo) => {
-    getTodo({ variables: { idTodo: id_todo } });
+  const idUsuarioString = localStorage.getItem("idUsuario");
+  const idUsuario = parseInt(idUsuarioString);
+
+  const borrarLocal = (e) => {
+    localStorage.clear();
+    window.location.reload();
   };
+
   useEffect(() => {
     if (resultado.data) {
       setTodoDetalle(resultado.data.todosById);
     }
   }, [resultado]);
-
-  const idUsuarioString = localStorage.getItem("idUsuario");
-  const idUsuario = parseInt(idUsuarioString);
-
-  const showTodoByUser = (idUsuario) => {
-    getTodoByUser({ variables: { idUsuario: idUsuario } });
-  };
 
   useEffect(() => {
     showTodoByUser(idUsuario);
@@ -39,6 +36,14 @@ const ToDos = () => {
       setTodo(result.data);
     }
   }, [result.data]);
+
+  const showTodoByUser = (idUsuario) => {
+    getTodoByUser({ variables: { idUsuario: idUsuario } });
+  };
+
+  const showTodo = (id_todo) => {
+    getTodo({ variables: { idTodo: id_todo } });
+  };
 
   const handleSubmit = async (e) => {
     if (actividad === "") {
@@ -59,11 +64,6 @@ const ToDos = () => {
     eliminarToDo({ variables: { idTodo } });
     setIdTodo("");
     alert("Eliminado con éxito");
-  };
-
-  const borrarLocal = (e) => {
-    localStorage.clear();
-    window.location.reload();
   };
 
   if (todo && todoDetalle == null) {
